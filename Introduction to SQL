@@ -1,0 +1,18 @@
+SQL = Structured Query Language
+
+VARCHAR is very commonly used for storing strings. INT a common SQL integer data type can store less than negative two billion to more that positive two billion. Numeric digits stores upto 38 digits total.
+Schema are the blueprint of databases.
+if we like to select all field in the table we can use asterisk(*)
+
+Excercises:
+-- Return all titles from the books table
+SELECT title
+FROM books
+
+-- Select title and author from the books table
+SELECT title,author
+FROM books;
+
+-- Select all fields from the books table
+SELECT *
+FROM books;
