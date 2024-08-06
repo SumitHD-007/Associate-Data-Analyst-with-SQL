@@ -16,3 +16,7 @@ FROM books;
 -- Select all fields from the books table
 SELECT *
 FROM books;
+
+Aliasing = For renaming columns in the table. (AS)
+DISTINCT = no repeat values
+A view refers to a virtual table that is the result of a saved SQL SELECT statement. Its not generally use in the database rather its store in queue for the future use.
