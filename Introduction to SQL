@@ -20,3 +20,24 @@ FROM books;
 Aliasing = For renaming columns in the table. (AS)
 DISTINCT = no repeat values
 A view refers to a virtual table that is the result of a saved SQL SELECT statement. Its not generally use in the database rather its store in queue for the future use.
+-- Select unique authors and genre combinations from the books table
+SELECT DISTINCT author,genre
+FROM books;
+
+-- Alias author so that it becomes unique_author
+SELECT DISTINCT author AS unique_author
+FROM books;
+
+-- Your code to create the view:
+CREATE VIEW library_authors AS
+SELECT DISTINCT author AS unique_author
+FROM books;
+
+-- Select all columns from library_authors
+SELECT unique_author
+from library_authors
+
+-- Select the first 10 genres from books using PostgreSQL
+SELECT genre
+FROM books
+LIMIT 10;
