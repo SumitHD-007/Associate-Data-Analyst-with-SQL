@@ -211,3 +211,100 @@ Update the query by adding ROUND() around the calculation and round to two decim
 -- Round duration_hours to two decimal places
 SELECT title, ROUND((duration / 60.0),2) AS duration_hours
 FROM films;
+
+
+ORDER BY
+Select the name of each person in the people table, sorted alphabetically.
+ans:
+-- Select name from people and sort alphabetically
+SELECT name
+FROM people
+ORDER BY name;
+
+Select the title and duration for every film, from longest duration to shortest.
+ANS:
+-- Select the title and duration from longest to shortest film
+SELECT title,duration
+FROM films
+ORDER BY duration DESC;
+
+Select the release_year, duration, and title of films ordered by their release year and duration, in that order.
+ans:
+-- Select the release year, duration, and title sorted by release year and duration
+SELECT release_year,duration,title
+FROM films
+ORDER BY release_year ASC, duration ASC;
+
+Select the certification, release_year, 
+and title from films ordered first by certification (alphabetically) and second by release year, starting with the most recent year.
+ANS:
+-- Select the certification, release year, and title sorted by certification and release year
+SELECT certification,release_year,title
+FROM films
+ORDER BY certification ASC, release_year DESC;
+
+GROUP BY
+Select the release_year and count of films released in each year aliased as film_count.
+-- Find the release_year and film_count of each year
+SELECT release_year, COUNT(*) AS film_count
+FROM films
+GROUP BY release_year;
+
+Select the release_year and average duration aliased as avg_duration of all films, grouped by release_year.
+-- Find the release_year and average duration of films for each year
+SELECT release_year, AVG(duration) AS avg_duration
+FROM films
+GROUP BY release_year;
+
+Select the release_year, country, and the maximum budget aliased as max_budget for each year and each country; 
+sort your results by release_year and country.
+-- Find the release_year, country, and max_budget, then group and order by release_year and country
+SELECT release_year, country, MAX(budget) AS max_budget
+FROM films
+GROUP BY release_year, country
+ORDER BY release_year, country;
+
+Select country from the films table, and get the distinct count of certification aliased as certification_count.
+Group the results by country.
+Filter the unique count of certifications to only results greater than 10.
+ANS: 
+-- Select the country and distinct count of certification as certification_count
+SELECT country, COUNT(DISTINCT certification) AS certification_count
+FROM films
+-- Group by country
+GROUP BY country
+-- Filter results to countries with more than 10 different certifications
+HAVING COUNT(DISTINCT certification) > 10
+
+Select the country and the average budget as average_budget, rounded to two decimal, from films.
+Group the results by country.
+Filter the results to countries with an average budget of more than one billion (1000000000).
+Sort by descending order of the average_budget
+ANS:
+-- Select the country and average_budget from films
+SELECT country, ROUND(AVG(budget),2) AS average_budget
+FROM films
+-- Group by country
+GROUP BY country
+-- Filter to countries with an average_budget of more than one billion
+HAVING AVG(budget) > 1000000000
+-- Order by descending order of the aggregated budget
+ORDER BY average_budget;
+
+DESC = HIGHEST TO LOWEST
+ASC = FROM LOWEST TO HIGHEST
+
+
+    Select the release_year for each film in the films table, filter for records released after 1990, and group by release_year.
+    Modify the query to include the average budget aliased as avg_budget and average gross aliased as avg_gross for the results we have so far.
+    Modify the query once more so that only years with an average budget of greater than 60 million are included.
+    Finally, order the results from the highest average gross and limit to one.
+
+SELECT release_year, AVG(budget) AS avg_budget, AVG(gross) AS avg_gross
+FROM films
+WHERE release_year > 1990
+GROUP BY release_year
+HAVING AVG(budget) > 60000000
+-- Order the results from highest to lowest average gross and limit to one
+ORDER BY AVG(gross) DESC
+LIMIT 1;
