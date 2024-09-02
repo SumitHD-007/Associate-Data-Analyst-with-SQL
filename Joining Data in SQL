@@ -36,5 +36,48 @@ INNER JOIN economies AS e
 ON c.code = e.code;
 
 
-    Select the country name, aliased as country, from the countries table.
+what is the best way to query all the different languages spoken in a country? 
+Or, all the countries that speak a certain language?
+SELECT c.name AS country, l.name AS language
+FROM countries AS c
+INNER JOIN languages AS l
+USING(code)
+WHERE l.name = 'Bhojpuri';
 
+Suppose you are interested in the relationship between fertility and unemployment rates. 
+Your task in this exercise is to join tables to return the country name, year, fertility rate, 
+and unemployment rate in a single result from the countries, populations and economies tables.
+
+
+    Do an inner join of countries AS c (left) with populations AS p (right), on code.
+    Select name, year and fertility_rate.
+-- Select relevant fields
+SELECT name, year, fertility_rate 
+-- Inner join countries and populations, aliased, on code
+FROM countries AS c
+INNER JOIN populations AS p
+ON c.code = p.country_code;
+
+
+    Chain an inner join with the economies table AS e, on code.
+    Select year and unemployment_rate from the economies table.
+-- Select fields
+SELECT name, e.year, fertility_rate, unemployment_rate
+FROM countries AS c
+INNER JOIN populations AS p
+ON c.code = p.country_code
+-- Join to economies (as e)
+INNER JOIN economies as e
+-- Match on country code
+ON c.code = e.code;
+
+
+    Modify your query so that you are joining to economies on year as well as code.
+SELECT name, e.year, fertility_rate, unemployment_rate
+FROM countries AS c
+INNER JOIN populations AS p
+ON c.code = p.country_code
+INNER JOIN economies AS e
+ON c.code = e.code
+-- Add an additional joining condition such that you are also joining on year
+	AND e.year = p.year;
