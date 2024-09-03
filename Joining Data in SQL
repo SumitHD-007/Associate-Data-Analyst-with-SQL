@@ -180,3 +180,46 @@ ON c1.code = l.code
 FULL JOIN currencies AS c2
 ON c1.code = c2.code
 WHERE region LIKE 'M%esia';
+
+
+SELF JOIN
+
+    Perform an inner join of populations with itself ON country_code, aliased p1 and p2 respectively.
+    Select the country_code from p1 and the size field from both p1 and p2, aliasing p1.size as size2010 and p2.size as size2015 (in that order).
+-- Select aliased fields from populations as p1
+SELECT
+      p1.country_code,
+      p1.size AS size2010,
+      p2.size AS size2015
+-- Join populations as p1 to itself, alias as p2, on country code
+FROM populations AS p1
+INNER JOIN populations AS p2
+ON p1.country_code = p2.country_code;
+
+Since you want to compare records from 2010 and 2015, 
+eliminate unwanted records by extending the WHERE statement to include only records where the p1.year matches p2.year - 5.
+
+SELECT 
+	p1.country_code, 
+    p1.size AS size2010, 
+    p2.size AS size2015
+FROM populations AS p1
+INNER JOIN populations AS p2
+ON p1.country_code = p2.country_code
+WHERE p1.year = 2010
+-- Filter such that p1.year is always five years before p2.year
+    AND p1.year=p2.year - 5;
+
+
+    Begin your query by selecting all fields from economies2015.
+    Create a second query that selects all fields from economies2019.
+    Perform a set operation to combine the two queries you just created, ensuring you do not return duplicates.
+-- Select all fields from economies2015
+SELECT *   
+FROM economies2015 
+-- Set operation
+UNION 
+-- Select all fields from economies2019
+SELECT *
+FROM economies2019
+ORDER BY code, year;
